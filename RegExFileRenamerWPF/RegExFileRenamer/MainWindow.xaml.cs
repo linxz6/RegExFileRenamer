@@ -1,35 +1,41 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-//using System.Windows;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace RegExFileRenamer
 {
-    public partial class RegExFileRenamer : Form
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        public RegExFileRenamer()
+        public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void OpenExplorerButton_Click(object sender, EventArgs e)
+        private void OpenExplorerButton_Click(object sender, RoutedEventArgs e)
         {
             //Open file explorer for selecting the folder
             using (CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog())
             {
                 FolderDialog.InitialDirectory = DirectoryTextBox.Text;
                 FolderDialog.AllowNonFileSystemItems = true;
-                FolderDialog.Multiselect = true;               
+                FolderDialog.Multiselect = true;
                 FolderDialog.ShowHiddenItems = true;
                 FolderDialog.IsFolderPicker = true;
                 FolderDialog.Title = "Select folder to scan";
@@ -38,10 +44,10 @@ namespace RegExFileRenamer
                     //Set the UI to the selected folder
                     DirectoryTextBox.Text = FolderDialog.FileName;
                     //Reset whether the folder has been scanned
-                    FolderScannedCheckBox.Checked = false;
+                    FolderScannedCheckBox.IsChecked = false;
                     FilesFoundListBox.Items.Clear();
                     //Reset whether the regex has been tested
-                    RegexTestedCheckBox.Checked = false;
+                    RegexTestedCheckBox.IsChecked = false;
                     PostRegexListBox.Items.Clear();
                     //Scan the folder
                     ScanDirectoryButton_Click(sender, e);
@@ -49,34 +55,34 @@ namespace RegExFileRenamer
             }
         }
 
-        private void ScanDirectoryButton_Click(object sender, EventArgs e)
+        private void ScanDirectoryButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //scan the folder for all file names
                 string[] Files = Directory.GetFiles(DirectoryTextBox.Text);
-                
+
                 //add just the file names to the user UI
                 FilesFoundListBox.Items.Clear();
-                foreach(string file in Files)
+                foreach (string file in Files)
                 {
                     //add file name to the user display
-                    FilesFoundListBox.Items.Add(file.Replace(@DirectoryTextBox.Text + @"\",string.Empty));
+                    FilesFoundListBox.Items.Add(file.Replace(@DirectoryTextBox.Text + @"\", string.Empty));
                 }
 
                 //Set whether the folder has been scanned
-                FolderScannedCheckBox.Checked = true;
+                FolderScannedCheckBox.IsChecked = true;
                 //Reset whether the regex has been tested
-                RegexTestedCheckBox.Checked = false;
+                RegexTestedCheckBox.IsChecked = false;
                 PostRegexListBox.Items.Clear();
             }
-            catch(Exception Except)
+            catch (Exception Except)
             {
                 MessageBox.Show("Failed to scan folder: " + Except.Message);
             }
         }
 
-        private void TestRegexButton_Click(object sender, EventArgs e)
+        private void TestRegexButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -86,7 +92,7 @@ namespace RegExFileRenamer
                     PostRegexListBox.Items.Add(Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text));
                 }
                 //Set whether the regex has been tested
-                RegexTestedCheckBox.Checked = true;
+                RegexTestedCheckBox.IsChecked = true;
             }
             catch (Exception Except)
             {
@@ -95,13 +101,13 @@ namespace RegExFileRenamer
             }
         }
 
-        private void ApplyRegexButton_Click(object sender, EventArgs e)
+        private void ApplyRegexButton_Click(object sender, RoutedEventArgs e)
         {
             //check if the folder has been scanned and if the regex has been tested
-            if(FolderScannedCheckBox.Checked == true && RegexTestedCheckBox.Checked == true)
+            if (FolderScannedCheckBox.IsChecked == true && RegexTestedCheckBox.IsChecked == true)
             {
                 //rename files one by one
-                for(int i = 0;i < FilesFoundListBox.Items.Count;i++)
+                for (int i = 0; i < FilesFoundListBox.Items.Count; i++)
                 {
                     try
                     {
@@ -109,7 +115,7 @@ namespace RegExFileRenamer
                         string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i];
                         File.Move(OldNameFullPath, NewNameFullPath);
                     }
-                    catch(Exception Except)
+                    catch (Exception Except)
                     {
                         MessageBox.Show("Failed to rename file: " + Except.Message);
                     }
@@ -124,27 +130,27 @@ namespace RegExFileRenamer
             }
         }
 
-        private void DirectoryTextBox_TextChanged(object sender, EventArgs e)
+        private void DirectoryTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Reset whether the folder has been scanned
-            FolderScannedCheckBox.Checked = false;
+            FolderScannedCheckBox.IsChecked = false;
             FilesFoundListBox.Items.Clear();
             //Reset whether the regex has been tested
-            RegexTestedCheckBox.Checked = false;
+            RegexTestedCheckBox.IsChecked = false;
             PostRegexListBox.Items.Clear();
         }
 
-        private void RegexTextBox_TextChanged(object sender, EventArgs e)
+        private void RegexTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Reset whether the regex has been tested
-            RegexTestedCheckBox.Checked = false;
+            RegexTestedCheckBox.IsChecked = false;
             PostRegexListBox.Items.Clear();
         }
 
-        private void ReplacementTextBox_TextChanged(object sender, EventArgs e)
+        private void ReplacementTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Reset whether the regex has been tested
-            RegexTestedCheckBox.Checked = false;
+            RegexTestedCheckBox.IsChecked = false;
             PostRegexListBox.Items.Clear();
         }
     }

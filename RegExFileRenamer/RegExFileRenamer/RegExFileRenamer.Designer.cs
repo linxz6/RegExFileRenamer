@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.OpenExplorerButton = new System.Windows.Forms.Button();
             this.ScanDirectoryButton = new System.Windows.Forms.Button();
-            this.FilesFoundListBox = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.RegexTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,9 +40,10 @@
             this.ReplacementTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.RegexTestedCheckBox = new System.Windows.Forms.CheckBox();
-            this.PostRegexListBox = new System.Windows.Forms.ListBox();
             this.FolderScannedCheckBox = new System.Windows.Forms.CheckBox();
             this.ApplyRegexButton = new System.Windows.Forms.Button();
+            this.PostRegexListBox = new System.Windows.Forms.ListBox();
+            this.FilesFoundListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // DirectoryTextBox
@@ -86,19 +86,6 @@
             this.ScanDirectoryButton.Text = "Scan Directory";
             this.ScanDirectoryButton.UseVisualStyleBackColor = true;
             this.ScanDirectoryButton.Click += new System.EventHandler(this.ScanDirectoryButton_Click);
-            // 
-            // FilesFoundListBox
-            // 
-            this.FilesFoundListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.FilesFoundListBox.FormattingEnabled = true;
-            this.FilesFoundListBox.HorizontalScrollbar = true;
-            this.FilesFoundListBox.Location = new System.Drawing.Point(9, 108);
-            this.FilesFoundListBox.Name = "FilesFoundListBox";
-            this.FilesFoundListBox.ScrollAlwaysVisible = true;
-            this.FilesFoundListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.FilesFoundListBox.Size = new System.Drawing.Size(401, 498);
-            this.FilesFoundListBox.TabIndex = 5;
             // 
             // label2
             // 
@@ -177,20 +164,6 @@
             this.RegexTestedCheckBox.Text = "Regex Tested";
             this.RegexTestedCheckBox.UseVisualStyleBackColor = true;
             // 
-            // PostRegexListBox
-            // 
-            this.PostRegexListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PostRegexListBox.FormattingEnabled = true;
-            this.PostRegexListBox.HorizontalScrollbar = true;
-            this.PostRegexListBox.Location = new System.Drawing.Point(416, 108);
-            this.PostRegexListBox.Name = "PostRegexListBox";
-            this.PostRegexListBox.ScrollAlwaysVisible = true;
-            this.PostRegexListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.PostRegexListBox.Size = new System.Drawing.Size(465, 498);
-            this.PostRegexListBox.TabIndex = 15;
-            // 
             // FolderScannedCheckBox
             // 
             this.FolderScannedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -215,14 +188,37 @@
             this.ApplyRegexButton.UseVisualStyleBackColor = true;
             this.ApplyRegexButton.Click += new System.EventHandler(this.ApplyRegexButton_Click);
             // 
+            // PostRegexListBox
+            // 
+            this.PostRegexListBox.FormattingEnabled = true;
+            this.PostRegexListBox.HorizontalScrollbar = true;
+            this.PostRegexListBox.Location = new System.Drawing.Point(416, 108);
+            this.PostRegexListBox.Name = "PostRegexListBox";
+            this.PostRegexListBox.ScrollAlwaysVisible = true;
+            this.PostRegexListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.PostRegexListBox.Size = new System.Drawing.Size(465, 498);
+            this.PostRegexListBox.TabIndex = 15;
+            // 
+            // FilesFoundListBox
+            // 
+            this.FilesFoundListBox.FormattingEnabled = true;
+            this.FilesFoundListBox.HorizontalScrollbar = true;
+            this.FilesFoundListBox.Location = new System.Drawing.Point(9, 108);
+            this.FilesFoundListBox.Name = "FilesFoundListBox";
+            this.FilesFoundListBox.ScrollAlwaysVisible = true;
+            this.FilesFoundListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.FilesFoundListBox.Size = new System.Drawing.Size(401, 498);
+            this.FilesFoundListBox.TabIndex = 5;
+            // 
             // RegExFileRenamer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(893, 656);
+            this.Controls.Add(this.FilesFoundListBox);
+            this.Controls.Add(this.PostRegexListBox);
             this.Controls.Add(this.ApplyRegexButton);
             this.Controls.Add(this.FolderScannedCheckBox);
-            this.Controls.Add(this.PostRegexListBox);
             this.Controls.Add(this.RegexTestedCheckBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -231,7 +227,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.RegexTextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.FilesFoundListBox);
             this.Controls.Add(this.ScanDirectoryButton);
             this.Controls.Add(this.OpenExplorerButton);
             this.Controls.Add(this.label1);
@@ -250,7 +245,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button OpenExplorerButton;
         private System.Windows.Forms.Button ScanDirectoryButton;
-        private System.Windows.Forms.ListBox FilesFoundListBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox RegexTextBox;
         private System.Windows.Forms.Label label3;
@@ -259,9 +253,10 @@
         private System.Windows.Forms.TextBox ReplacementTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox RegexTestedCheckBox;
-        private System.Windows.Forms.ListBox PostRegexListBox;
         private System.Windows.Forms.CheckBox FolderScannedCheckBox;
         private System.Windows.Forms.Button ApplyRegexButton;
+        private System.Windows.Forms.ListBox PostRegexListBox;
+        private System.Windows.Forms.ListBox FilesFoundListBox;
     }
 }
 
