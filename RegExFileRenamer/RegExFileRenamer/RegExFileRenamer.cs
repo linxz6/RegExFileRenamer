@@ -102,9 +102,16 @@ namespace RegExFileRenamer
                 //rename files one by one
                 for(int i = 0;i < FilesFoundListBox.Items.Count;i++)
                 {
-                    string OldNameFullPath = DirectoryTextBox.Text + "\\" + FilesFoundListBox.Items[i];
-                    string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i];
-                    File.Move(OldNameFullPath, NewNameFullPath);
+                    try
+                    {
+                        string OldNameFullPath = DirectoryTextBox.Text + "\\" + FilesFoundListBox.Items[i];
+                        string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i];
+                        File.Move(OldNameFullPath, NewNameFullPath);
+                    }
+                    catch(Exception Except)
+                    {
+                        MessageBox.Show("Failed to rename file: " + Except.Message);
+                    }
                 }
 
                 //rescan after rename
@@ -139,7 +146,5 @@ namespace RegExFileRenamer
             RegexTestedCheckBox.Checked = false;
             PostRegexListBox.Items.Clear();
         }
-
-        
     }
 }
