@@ -84,20 +84,27 @@ namespace RegExFileRenamer
 
         private void TestRegexButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (FolderScannedCheckBox.IsChecked == true)
             {
-                PostRegexListBox.Items.Clear();
-                foreach (string FileName in FilesFoundListBox.Items)
+                try
                 {
-                    PostRegexListBox.Items.Add(Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text));
+                    PostRegexListBox.Items.Clear();
+                    foreach (string FileName in FilesFoundListBox.Items)
+                    {
+                        PostRegexListBox.Items.Add(Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text));
+                    }
+                    //Set whether the regex has been tested
+                    RegexTestedCheckBox.IsChecked = true;
                 }
-                //Set whether the regex has been tested
-                RegexTestedCheckBox.IsChecked = true;
+                catch (Exception Except)
+                {
+                    PostRegexListBox.Items.Clear();
+                    MessageBox.Show("Regex failed: " + Except.Message);
+                }
             }
-            catch (Exception Except)
+            else
             {
-                PostRegexListBox.Items.Clear();
-                MessageBox.Show("Regex failed: " + Except.Message);
+                MessageBox.Show("Scan a folder before testing the regular expression.");
             }
         }
 
