@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace RegExFileRenamer
@@ -23,6 +24,9 @@ namespace RegExFileRenamer
     /// </summary>
     public partial class MainWindow : Window
     {
+        static string SavedRegexesFileName = "SavedRegexes.xml";
+        static SavedRegexesClass LoadedSave;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -219,20 +223,74 @@ namespace RegExFileRenamer
 
         private void SaveRegexButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            //Load the save file if it hasn't been already
+            if (LoadedSave == null)
+            {
+                SavedRegexesClass.CheckIfSaveExists(SavedRegexesFileName);
+                LoadedSave = SavedRegexesClass.Load(SavedRegexesFileName);
+            }
+
+            //create the new regex
+            SavedRegex NewRegex = new SavedRegex();
+            NewRegex.Title = "Test" + (LoadedSave.SavedRegexList.Count + 1).ToString();
+            NewRegex.Regex = RegexTextBox.Text;
+            NewRegex.Replacement = ReplacementTextBox.Text;
+
+            //save the new list to file
+            LoadedSave.SavedRegexList.Add(NewRegex);
+            LoadedSave.Save(SavedRegexesFileName);
         }
 
         private void LoadRegexButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //Load the save file if it hasn't been already
+            if (LoadedSave == null)
+            {
+                SavedRegexesClass.CheckIfSaveExists(SavedRegexesFileName);
+                LoadedSave = SavedRegexesClass.Load(SavedRegexesFileName);
+            }
         }
     }
 
     public struct SavedRegex
     {
-        string Title;
-        string Regex;
-        string Replacement;
-        string Description;
+        public string Title;
+        public string Regex;
+        public string Replacement;
+        public RegexOptions Options;
+        public string Description;
+    }
+
+    public class SavedRegexesClass
+    {
+        public List<SavedRegex> SavedRegexList;
+
+        public void Save(string filename)
+        {
+            using (StreamWriter sw = new StreamWriter(filename))
+            {
+                XmlSerializer xmls = new XmlSerializer(typeof(SavedRegexesClass));
+                xmls.Serialize(sw, this);
+            }
+        }
+
+        public static void CheckIfSaveExists(string filename)
+        {
+            //Create an empty save file if it doesn't exist
+            if (File.Exists(filename) == false)
+            {
+                SavedRegexesClass EmptySave = new SavedRegexesClass();
+                EmptySave.Save(filename);
+            }
+        }
+
+        public static SavedRegexesClass Load(string filename)
+        {
+            using (StreamReader sw = new StreamReader(filename))
+            {
+                XmlSerializer xmls = new XmlSerializer(typeof(SavedRegexesClass));
+                return xmls.Deserialize(sw) as SavedRegexesClass;
+            }
+        }
     }
 }
