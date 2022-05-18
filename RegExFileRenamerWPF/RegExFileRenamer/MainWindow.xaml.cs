@@ -28,6 +28,7 @@ namespace RegExFileRenamer
             InitializeComponent();
         }
 
+        //Open Windows Explorer UI to select a file directory
         private void OpenExplorerButton_Click(object sender, RoutedEventArgs e)
         {
             //Open file explorer for selecting the folder
@@ -55,6 +56,7 @@ namespace RegExFileRenamer
             }
         }
 
+        //Scan directory for all files
         private void ScanDirectoryButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -82,6 +84,7 @@ namespace RegExFileRenamer
             }
         }
 
+        //Test the regular expression and replacement
         private void TestRegexButton_Click(object sender, RoutedEventArgs e)
         {
             if (FolderScannedCheckBox.IsChecked == true)
@@ -89,6 +92,7 @@ namespace RegExFileRenamer
                 try
                 {
                     PostRegexListBox.Items.Clear();
+                    //Apply regex and replacement to all found file names and display them for the user to review
                     foreach (string FileName in FilesFoundListBox.Items)
                     {
                         PostRegexListBox.Items.Add(Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text));
@@ -108,6 +112,7 @@ namespace RegExFileRenamer
             }
         }
 
+        //Apply the regular expression and replacement to all found files
         private void ApplyRegexButton_Click(object sender, RoutedEventArgs e)
         {
             //check if the folder has been scanned and if the regex has been tested
@@ -137,6 +142,7 @@ namespace RegExFileRenamer
             }
         }
 
+        //Reset all safety checks on directory change
         private void DirectoryTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Reset whether the folder has been scanned
@@ -147,6 +153,7 @@ namespace RegExFileRenamer
             PostRegexListBox.Items.Clear();
         }
 
+        //Reset regex safety check on expression change
         private void RegexTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Reset whether the regex has been tested
@@ -154,11 +161,52 @@ namespace RegExFileRenamer
             PostRegexListBox.Items.Clear();
         }
 
+        //Reset regex safety check on replacement change
         private void ReplacementTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Reset whether the regex has been tested
             RegexTestedCheckBox.IsChecked = false;
             PostRegexListBox.Items.Clear();
+        }
+
+        //Sync the scroll bars on the ListBoxes
+        private void FilesFoundScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            PostRegexScrollViewer.ScrollToVerticalOffset(FilesFoundScrollViewer.VerticalOffset);
+            PostRegexScrollViewer.ScrollToHorizontalOffset(FilesFoundScrollViewer.HorizontalOffset);
+        }
+
+        //Sync the scroll bars on the ListBoxes
+        private void PostRegexScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            FilesFoundScrollViewer.ScrollToVerticalOffset(PostRegexScrollViewer.VerticalOffset);
+            FilesFoundScrollViewer.ScrollToHorizontalOffset(PostRegexScrollViewer.HorizontalOffset);
+        }
+
+        //Weird thing to make the scroll wheel with the FilesFoundListBox
+        private void FilesFoundListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            FilesFoundScrollViewer.ScrollToVerticalOffset(FilesFoundScrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
+
+        //Weird thing to make the scroll wheel with the FilesFoundListBox
+        private void PostRegexListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            PostRegexScrollViewer.ScrollToVerticalOffset(PostRegexScrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
+
+        //Sync the selections on the ListBoxes
+        private void FilesFoundListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PostRegexListBox.SelectedIndex = FilesFoundListBox.SelectedIndex;
+        }
+
+        //Sync the selections on the ListBoxes
+        private void PostRegexListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilesFoundListBox.SelectedIndex = PostRegexListBox.SelectedIndex;
         }
     }
 }
