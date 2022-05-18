@@ -95,7 +95,15 @@ namespace RegExFileRenamer
                     //Apply regex and replacement to all found file names and display them for the user to review
                     foreach (string FileName in FilesFoundListBox.Items)
                     {
-                        PostRegexListBox.Items.Add(Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text));
+                        string PostRegexFileName = string.Empty;
+                        // add * char to beginning of filename if the regex finds a match
+                        if(Regex.IsMatch(FileName, RegexTextBox.Text))
+                        {
+                            PostRegexFileName += "*";
+                        }
+                        PostRegexFileName += Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text);
+
+                        PostRegexListBox.Items.Add(PostRegexFileName);
                     }
                     //Set whether the regex has been tested
                     RegexTestedCheckBox.IsChecked = true;
@@ -124,7 +132,7 @@ namespace RegExFileRenamer
                     try
                     {
                         string OldNameFullPath = DirectoryTextBox.Text + "\\" + FilesFoundListBox.Items[i];
-                        string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i];
+                        string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i].ToString().Replace("*","");
                         File.Move(OldNameFullPath, NewNameFullPath);
                     }
                     catch (Exception Except)
@@ -208,5 +216,23 @@ namespace RegExFileRenamer
         {
             FilesFoundListBox.SelectedIndex = PostRegexListBox.SelectedIndex;
         }
+
+        private void SaveRegexButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void LoadRegexButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+
+    public struct SavedRegex
+    {
+        string Title;
+        string Regex;
+        string Replacement;
+        string Description;
     }
 }

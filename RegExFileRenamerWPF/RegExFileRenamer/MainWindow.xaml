@@ -15,6 +15,8 @@
         <Button x:Name="ScanDirectoryButton" Content="Scan Directory" HorizontalAlignment="Right" Margin="0,19,10,0" VerticalAlignment="Top" Width="91" Click="ScanDirectoryButton_Click" Grid.Column="1" Height="20"/>
         <Button x:Name="TestRegexButton" Content="Test Regex" HorizontalAlignment="Right" Margin="0,63,10,0" VerticalAlignment="Top" Width="91" Click="TestRegexButton_Click" Grid.Column="1" Height="20"/>
         <Button x:Name="ApplyRegexButton" Content="Apply Regex Rename" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="246" Height="27" FontSize="15" Click="ApplyRegexButton_Click" HorizontalAlignment="Left"/>
+        <Button x:Name="SaveRegexButton" Content="Save Regex" Margin="0,0,128,10" VerticalAlignment="Bottom" Width="91" Height="27" FontSize="15" HorizontalAlignment="Left" Grid.Column="1" Click="SaveRegexButton_Click"/>
+        <Button x:Name="LoadRegexButton" Content="Load Regex" Margin="96,0,0,10" VerticalAlignment="Bottom" Width="91" Height="27" FontSize="15" HorizontalAlignment="Left" Grid.Column="1" Click="LoadRegexButton_Click"/>
         <TextBox x:Name="DirectoryTextBox" Height="20" Margin="10,19,202,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="DirectoryTextBox_TextChanged" Grid.ColumnSpan="2"/>
         <TextBox x:Name="RegexTextBox" Height="20" Margin="10,63,5,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="RegexTextBox_TextChanged"/>
         <TextBox x:Name="ReplacementTextBox" Height="20" Margin="0,63,106,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ReplacementTextBox_TextChanged" Grid.Column="1"/>
@@ -26,10 +28,10 @@
         <ScrollViewer x:Name="PostRegexScrollViewer" Grid.Column="1" Margin="0,112,10,42" CanContentScroll="True" ScrollChanged="PostRegexScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
             <ListBox x:Name="PostRegexListBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="PostRegexListBox_PreviewMouseWheel" SelectionChanged="PostRegexListBox_SelectionChanged"/>
         </ScrollViewer>
-        <Label x:Name="RegularLabel" Content="Replacement" HorizontalAlignment="Left" Margin="0,39,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Grid.Column="1" Height="24" Width="81"/>
-        <Label x:Name="RegexLabel" Content="Regular Expression" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Width="115"/>
-        <Label x:Name="FileDirectoryLabel" Content="File Directory" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Width="81"/>
-        <Label x:Name="FilesInDirectoryLabel" Content="Files In Directory" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Width="100"/>
-        <Label x:Name="FilesAfterRegexLabel" Content="Files After Regex" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Grid.Column="1" Height="24" Width="102"/>
+        <Label x:Name="RegularLabel" Content="Replacement" HorizontalAlignment="Left" Margin="0,39,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Grid.Column="1" Height="24"/>
+        <Label x:Name="RegexLabel" Content="Regular Expression" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24"/>
+        <Label x:Name="FileDirectoryLabel" Content="File Directory" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24"/>
+        <Label x:Name="FilesInDirectoryLabel" Content="Files In Directory" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24"/>
+        <Label x:Name="FilesAfterRegexLabel" Content="Files After Regex: * = changed" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Grid.Column="1" Height="24"/>
     </Grid>
 </Window>
