@@ -252,6 +252,22 @@ namespace RegExFileRenamer
             LoadRegexDialog.Owner = this;
             LoadRegexDialog.ShowDialog();
         }
+
+        //Open the save editing window
+        private void EditSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Load the save file if it hasn't been already
+            if (LoadedSave == null)
+            {
+                SavedRegexesClass.CheckIfSaveExists(SavedRegexesFileName);
+                LoadedSave = SavedRegexesClass.Load(SavedRegexesFileName);
+            }
+
+            //Open new window to display the loaded save
+            var EditSaveDialog = new EditSaveWindow(LoadedSave);
+            EditSaveDialog.Owner = this;
+            EditSaveDialog.ShowDialog();
+        }
     }
 
     public class SavedRegex

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegExFileRenamer"
         mc:Ignorable="d"
-        Title="LoadRegexWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA" Closed="Window_Closed">
+        Title="LoadRegexWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA">
     <Grid>
         <ListBox x:Name="LoadedRegexesListBox" HorizontalAlignment="Left" Margin="10,24,0,5" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="LoadedRegexesListBox_SelectionChanged"/>
         <TextBox x:Name="TitleTextBox" Margin="222,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
@@ -13,7 +13,6 @@
         <TextBox x:Name="ReplacementTextBox" Margin="222,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
         <TextBox x:Name="DescriptionTextBox" Margin="222,165,10,30" TextWrapping="Wrap" IsReadOnly="True"/>
         <Button x:Name="LoadRegexButton" Content="Load Regex" HorizontalAlignment="Left" Margin="222,0,0,5" VerticalAlignment="Bottom" Width="91" Height="20" Click="LoadRegexButton_Click"/>
-        <Button x:Name="DeleteRegexButton" Content="Delete Regex" HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom" Width="91" Height="20" Click="DeleteRegexButton_Click"/>
         <Label x:Name="LoadedRegexesLabel" Content="Loaded Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="10,0,0,0"/>
         <Label x:Name="TitleLabel" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,0,0,0"/>
         <Label x:Name="RegexLabel" Content="Regex" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,47,0,0"/>

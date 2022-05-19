@@ -9,8 +9,8 @@
     <Grid>
         <ListBox x:Name="LoadedRegexesListBox" HorizontalAlignment="Left" Margin="10,24,0,5" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
         <TextBox x:Name="TitleTextBox" Margin="222,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Insert Title Here"/>
-        <TextBox x:Name="RegexTextBox" Margin="222,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Cursor="Arrow" Background="White"/>
-        <TextBox x:Name="ReplacementTextBox" Margin="222,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Cursor="Arrow"/>
+        <TextBox x:Name="RegexTextBox" Margin="222,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White"/>
+        <TextBox x:Name="ReplacementTextBox" Margin="222,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="DescriptionTextBox" Margin="222,165,10,30" TextWrapping="Wrap" Text="Insert description here"/>
         <Button x:Name="SaveRegexButton" Content="Save Regex" HorizontalAlignment="Left" Margin="222,0,0,5" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveRegexButton_Click"/>
         <Label x:Name="ExistingRegexesLabel" Content="Existing Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="10,0,0,0"/>

@@ -22,7 +22,6 @@ namespace RegExFileRenamer
         SavedRegexesClass LoadedSave;
         TextBox MainRegexTextBox;
         TextBox MainReplacementTextBox;
-        bool StuffChanged = false;
 
         //Setup when opened from MainWindow
         public LoadRegexWindow(SavedRegexesClass LoadedRegexes,TextBox MainRegexTextbox,TextBox MainReplacementTextbox)
@@ -61,34 +60,6 @@ namespace RegExFileRenamer
             MainRegexTextBox.Text = RegexTextBox.Text;
             MainReplacementTextBox.Text = ReplacementTextBox.Text;
             Close();
-        }
-
-        //delete selected regex from the save
-        private void DeleteRegexButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                LoadedSave.SavedRegexList.RemoveAt(LoadedRegexesListBox.SelectedIndex);
-                LoadedRegexesListBox.Items.Clear();
-                foreach (SavedRegex Regex in LoadedSave.SavedRegexList)
-                {
-                    LoadedRegexesListBox.Items.Add(Regex.Title);
-                }
-                StuffChanged = true;
-            }
-            catch(Exception Err)
-            {
-                MessageBox.Show("Failed to delete: " + Err.Message);
-            }
-        }
-
-        //save the file if saved regexes were changed
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if(StuffChanged == true)
-            {
-                LoadedSave.Save(MainWindow.SavedRegexesFileName);
-            }
         }
     }
 }
