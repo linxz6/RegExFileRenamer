@@ -18,6 +18,8 @@
         <TextBox x:Name="DescriptionTextBox" Margin="0,165,10,35" TextWrapping="Wrap" Grid.Column="1"/>
         <Button x:Name="DeleteRegexButton" Content="Delete Regex" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="DeleteRegexButton_Click" Grid.Column="1"/>
         <Button x:Name="SaveEditsButton" Content="Save Edits" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveEditsButton_Click" Grid.Column="1"/>
+        <Button x:Name="MoveUpArrowButton" Content="↑" HorizontalAlignment="Right" Margin="0,4,30,0" Width="20" Click="MoveUpArrowButton_Click" VerticalAlignment="Top" Height="20"/>
+        <Button x:Name="MoveDownArrowButton" Content="↓" HorizontalAlignment="Right" Margin="0,4,5,0" VerticalAlignment="Top" Width="20" Height="20" Click="MoveDownArrowButton_Click"/>
         <Label x:Name="TitleLabel" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Grid.Column="1"/>
         <Label x:Name="RegexesLabel" Content="Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="10,0,0,0"/>
         <Label x:Name="ReplacementLabel" Content="Replacement" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,94,0,0" Grid.Column="1"/>

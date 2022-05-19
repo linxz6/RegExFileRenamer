@@ -171,5 +171,83 @@ namespace RegExFileRenamer
                 DeleteRegexButton_Click(sender, e);
             }
         }
+
+        //move regex up the list
+        private void MoveUpArrowButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int SelectedIndex = LoadedRegexesListBox.SelectedIndex;
+                //check if the item is already at the top
+                if (SelectedIndex != 0)
+                {
+                    SavedRegex RegexToInsert = LoadedSave.SavedRegexList[SelectedIndex];
+                    LoadedSave.SavedRegexList.RemoveAt(SelectedIndex);
+                    LoadedSave.SavedRegexList.Insert(SelectedIndex - 1, RegexToInsert);
+                }
+                else
+                {
+                    return;
+                }
+
+                //refresh user display
+                LoadedRegexesListBox.Items.Clear();
+                TitleTextBox.Text = string.Empty;
+                RegexTextBox.Text = string.Empty;
+                ReplacementTextBox.Text = string.Empty;
+                DescriptionTextBox.Text = string.Empty;
+                foreach (SavedRegex Regex in LoadedSave.SavedRegexList)
+                {
+                    LoadedRegexesListBox.Items.Add(Regex.Title);
+                }
+                //put selection back
+                LoadedRegexesListBox.SelectedIndex = SelectedIndex - 1;
+                //note that change has been made
+                StuffChanged = true;
+            }
+            catch (Exception Err)
+            {
+                MessageBox.Show("Error occurred when trying to move regex: " + Err.Message);
+            }
+        }
+
+        //move regex down the list
+        private void MoveDownArrowButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int SelectedIndex = LoadedRegexesListBox.SelectedIndex;
+                //check if the item is already at the bottom
+                if (SelectedIndex != LoadedSave.SavedRegexList.Count - 1)
+                {
+                    SavedRegex RegexToInsert = LoadedSave.SavedRegexList[SelectedIndex];                   
+                    LoadedSave.SavedRegexList.Insert(SelectedIndex + 2, RegexToInsert);
+                    LoadedSave.SavedRegexList.RemoveAt(SelectedIndex);
+                }
+                else
+                {
+                    return;
+                }
+
+                //refresh user display
+                LoadedRegexesListBox.Items.Clear();
+                TitleTextBox.Text = string.Empty;
+                RegexTextBox.Text = string.Empty;
+                ReplacementTextBox.Text = string.Empty;
+                DescriptionTextBox.Text = string.Empty;
+                foreach (SavedRegex Regex in LoadedSave.SavedRegexList)
+                {
+                    LoadedRegexesListBox.Items.Add(Regex.Title);
+                }
+                //put selection back
+                LoadedRegexesListBox.SelectedIndex = SelectedIndex + 1;
+                //note that change has been made
+                StuffChanged = true;
+            }
+            catch (Exception Err)
+            {
+                MessageBox.Show("Error occurred when trying to move regex: " + Err.Message);
+            }
+        }
     }
 }
