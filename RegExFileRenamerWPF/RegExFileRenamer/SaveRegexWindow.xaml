@@ -7,17 +7,21 @@
         mc:Ignorable="d"
         Title="SaveRegexWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA" KeyDown="Window_KeyDown">
     <Grid>
-        <ListBox x:Name="LoadedRegexesListBox" HorizontalAlignment="Left" Margin="10,24,0,5" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-        <TextBox x:Name="TitleTextBox" Margin="222,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Insert Title Here"/>
-        <TextBox x:Name="RegexTextBox" Margin="222,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White"/>
-        <TextBox x:Name="ReplacementTextBox" Margin="222,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="DescriptionTextBox" Margin="222,165,10,30" TextWrapping="Wrap" Text="Insert description here"/>
-        <Button x:Name="SaveRegexButton" Content="Save Regex" HorizontalAlignment="Left" Margin="222,0,0,5" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveRegexButton_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition Width="58*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="LoadedRegexesListBox" Margin="10,24,5,10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Insert Title Here" Grid.Column="1"/>
+        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" Grid.Column="1"/>
+        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="DescriptionTextBox" Margin="0,165,10,35" TextWrapping="Wrap" Text="Insert description here" Grid.Column="1"/>
+        <Button x:Name="SaveRegexButton" Content="Save Regex" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveRegexButton_Click" Grid.Column="1"/>
         <Label x:Name="ExistingRegexesLabel" Content="Existing Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="10,0,0,0"/>
-        <Label x:Name="TitleLabel" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,0,0,0"/>
-        <Label x:Name="RegexLabel" Content="Regex" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,47,0,0"/>
-        <Label x:Name="ReplacementLabel" Content="Replacement" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,94,0,0"/>
-        <Label x:Name="DescriptionLabel" Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,141,0,0"/>
+        <Label x:Name="TitleLabel" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Grid.Column="1"/>
+        <Label x:Name="RegexLabel" Content="Regex" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,47,0,0" Grid.Column="1"/>
+        <Label x:Name="ReplacementLabel" Content="Replacement" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,94,0,0" Grid.Column="1"/>
+        <Label x:Name="DescriptionLabel" Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,141,0,0" Grid.Column="1"/>
 
     </Grid>
 </Window>
