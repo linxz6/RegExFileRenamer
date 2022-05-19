@@ -24,7 +24,7 @@ namespace RegExFileRenamer
     /// </summary>
     public partial class MainWindow : Window
     {
-        static string SavedRegexesFileName = "SavedRegexes.xml";
+        static public string SavedRegexesFileName = "SavedRegexes.xml";
         static SavedRegexesClass LoadedSave;
 
         public MainWindow()
@@ -221,6 +221,7 @@ namespace RegExFileRenamer
             FilesFoundListBox.SelectedIndex = PostRegexListBox.SelectedIndex;
         }
 
+        //Open the saving window
         private void SaveRegexButton_Click(object sender, RoutedEventArgs e)
         {
             //Load the save file if it hasn't been already
@@ -230,17 +231,13 @@ namespace RegExFileRenamer
                 LoadedSave = SavedRegexesClass.Load(SavedRegexesFileName);
             }
 
-            //create the new regex
-            SavedRegex NewRegex = new SavedRegex();
-            NewRegex.Title = "Test" + (LoadedSave.SavedRegexList.Count + 1).ToString();
-            NewRegex.Regex = RegexTextBox.Text;
-            NewRegex.Replacement = ReplacementTextBox.Text;
-
-            //save the new list to file
-            LoadedSave.SavedRegexList.Add(NewRegex);
-            LoadedSave.Save(SavedRegexesFileName);
+            //open save window
+            var SaveRegexDialog = new SaveRegexWindow(LoadedSave, RegexTextBox.Text, ReplacementTextBox.Text);
+            SaveRegexDialog.Owner = this;
+            SaveRegexDialog.ShowDialog();
         }
 
+        //Open the loading window
         private void LoadRegexButton_Click(object sender, RoutedEventArgs e)
         {
             //Load the save file if it hasn't been already
@@ -249,16 +246,26 @@ namespace RegExFileRenamer
                 SavedRegexesClass.CheckIfSaveExists(SavedRegexesFileName);
                 LoadedSave = SavedRegexesClass.Load(SavedRegexesFileName);
             }
+
+            //Open new window to display the loaded save
+            var LoadRegexDialog = new LoadRegexWindow(LoadedSave,RegexTextBox,ReplacementTextBox);
+            LoadRegexDialog.Owner = this;
+            LoadRegexDialog.ShowDialog();
         }
     }
 
-    public struct SavedRegex
+    public class SavedRegex
     {
         public string Title;
         public string Regex;
         public string Replacement;
         public RegexOptions Options;
         public string Description;
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 
     public class SavedRegexesClass
