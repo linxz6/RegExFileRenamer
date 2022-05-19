@@ -22,5 +22,41 @@ namespace RegExFileRenamer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FileDirectorySetting {
+            get {
+                return ((string)(this["FileDirectorySetting"]));
+            }
+            set {
+                this["FileDirectorySetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RegexSetting {
+            get {
+                return ((string)(this["RegexSetting"]));
+            }
+            set {
+                this["RegexSetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReplacementSetting {
+            get {
+                return ((string)(this["ReplacementSetting"]));
+            }
+            set {
+                this["ReplacementSetting"] = value;
+            }
+        }
     }
 }

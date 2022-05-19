@@ -30,6 +30,9 @@ namespace RegExFileRenamer
         public MainWindow()
         {
             InitializeComponent();
+            DirectoryTextBox.Text = Properties.Settings.Default.FileDirectorySetting;
+            RegexTextBox.Text = Properties.Settings.Default.RegexSetting;
+            ReplacementTextBox.Text = Properties.Settings.Default.ReplacementSetting;
         }
 
         //Open Windows Explorer UI to select a file directory
@@ -267,6 +270,15 @@ namespace RegExFileRenamer
             var EditSaveDialog = new EditSaveWindow(LoadedSave);
             EditSaveDialog.Owner = this;
             EditSaveDialog.ShowDialog();
+        }
+
+        //Save the settings
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.FileDirectorySetting = DirectoryTextBox.Text;
+            Properties.Settings.Default.RegexSetting = RegexTextBox.Text;
+            Properties.Settings.Default.ReplacementSetting = ReplacementTextBox.Text;
+            Properties.Settings.Default.Save();
         }
     }
 
