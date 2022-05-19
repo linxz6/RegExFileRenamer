@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegExFileRenamer"
         mc:Ignorable="d"
-        Title="LoadRegexWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA">
+        Title="LoadRegexWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA" KeyDown="Window_KeyDown">
     <Grid>
         <ListBox x:Name="LoadedRegexesListBox" HorizontalAlignment="Left" Margin="10,24,0,5" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="LoadedRegexesListBox_SelectionChanged"/>
         <TextBox x:Name="TitleTextBox" Margin="222,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>

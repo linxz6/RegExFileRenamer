@@ -33,6 +33,9 @@ namespace RegExFileRenamer
             {
                 LoadedRegexesListBox.Items.Add(Regex.Title);
             }
+            TitleTextBox.Focus();
+            TitleTextBox.SelectionStart = 0;
+            TitleTextBox.SelectionLength = TitleTextBox.Text.Count();
         }
 
         private void SaveRegexButton_Click(object sender, RoutedEventArgs e)
@@ -71,6 +74,16 @@ namespace RegExFileRenamer
             catch (Exception Err)
             {
                 MessageBox.Show("Failed to save: " + Err.Message);
+            }
+        }
+
+        //detect if enter key was pressed
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            //treat enter key as same as save button
+            if(e.Key == Key.Enter)
+            {
+                SaveRegexButton_Click(sender, e);
             }
         }
     }

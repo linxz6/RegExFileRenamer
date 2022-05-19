@@ -37,6 +37,7 @@ namespace RegExFileRenamer
                 LoadedRegexesListBox.Items.Add(Regex.Title);
             }
             LoadedRegexesListBox.SelectedIndex = 0;
+            LoadedRegexesListBox.Focus();
         }
 
         //Update display when user selection changes
@@ -60,6 +61,16 @@ namespace RegExFileRenamer
             MainRegexTextBox.Text = RegexTextBox.Text;
             MainReplacementTextBox.Text = ReplacementTextBox.Text;
             Close();
+        }
+
+        //detect if enter key was pressed
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            //treat enter key as same as load button
+            if (e.Key == Key.Enter)
+            {
+                LoadRegexButton_Click(sender, e);
+            }
         }
     }
 }

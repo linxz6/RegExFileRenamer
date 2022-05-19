@@ -34,6 +34,7 @@ namespace RegExFileRenamer
                 LoadedRegexesListBox.Items.Add(Regex.Title);
             }
             LoadedRegexesListBox.SelectedIndex = 0;
+            LoadedRegexesListBox.Focus();
         }
 
         //Update display when user selection changes
@@ -54,6 +55,13 @@ namespace RegExFileRenamer
         //Save the users edits
         private void SaveEditsButton_Click(object sender, RoutedEventArgs e)
         {
+            //check that only one item is selected
+            if(LoadedRegexesListBox.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("Can only modify one regex at a time");
+                return;
+            }
+
             int SelectedIndex = LoadedRegexesListBox.SelectedIndex;
             //check if title exists
             if (string.IsNullOrWhiteSpace(TitleTextBox.Text) == true)
@@ -62,7 +70,7 @@ namespace RegExFileRenamer
                 return;
             }
 
-            //check if title has already been used
+            //check if title already in use bu another regex
             for(int i = 0;i < LoadedSave.SavedRegexList.Count;i++)
             {
                 if (LoadedSave.SavedRegexList[i].Title == TitleTextBox.Text && i != SelectedIndex)
@@ -102,8 +110,28 @@ namespace RegExFileRenamer
             try
             {
                 int SelectedIndex = LoadedRegexesListBox.SelectedIndex;
-                //remove selected regex
-                LoadedSave.SavedRegexList.RemoveAt(SelectedIndex);
+                //if only one item is selected
+                if (LoadedRegexesListBox.SelectedItems.Count == 1)
+                {                   
+                    //remove selected regex
+                    LoadedSave.SavedRegexList.RemoveAt(SelectedIndex);
+                }
+                else //>1 items are selected to be deleted
+                {
+                    //remove all the selected items
+                    foreach(string RegexTitle in LoadedRegexesListBox.SelectedItems)
+                    {
+                        for(int i = 0;i < LoadedSave.SavedRegexList.Count;i++)
+                        {
+                            if(RegexTitle == LoadedSave.SavedRegexList[i].Title)
+                            {
+                                LoadedSave.SavedRegexList.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 //refresh user display
                 LoadedRegexesListBox.Items.Clear();
                 TitleTextBox.Text = string.Empty;
@@ -131,6 +159,16 @@ namespace RegExFileRenamer
             if (StuffChanged == true)
             {
                 LoadedSave.Save(MainWindow.SavedRegexesFileName);
+            }
+        }
+
+        //detect if delete key was pressed in selection window
+        private void LoadedRegexesListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if delete key pressed treat the same as the delete button
+            if(e.Key == Key.Delete)
+            {
+                DeleteRegexButton_Click(sender, e);
             }
         }
     }

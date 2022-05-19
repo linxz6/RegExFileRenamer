@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="EditSaveWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA" Closed="Window_Closed">
     <Grid>
-        <ListBox x:Name="LoadedRegexesListBox" HorizontalAlignment="Left" Margin="10,24,0,5" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="LoadedRegexesListBox_SelectionChanged"/>
+        <ListBox x:Name="LoadedRegexesListBox" HorizontalAlignment="Left" Margin="10,24,0,5" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="LoadedRegexesListBox_SelectionChanged" SelectionMode="Extended" KeyDown="LoadedRegexesListBox_KeyDown"/>
         <TextBox x:Name="TitleTextBox" Margin="222,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="RegexTextBox" Margin="222,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White"/>
         <TextBox x:Name="ReplacementTextBox" Margin="222,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -15,7 +15,7 @@
         <Button x:Name="DeleteRegexButton" Content="Delete Regex" HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom" Width="91" Height="20" Click="DeleteRegexButton_Click"/>
         <Button x:Name="SaveEditsButton" Content="Save Edits" HorizontalAlignment="Left" Margin="222,0,0,5" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveEditsButton_Click"/>
         <Label x:Name="TitleLabel" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,0,0,0"/>
-        <Label x:Name="RegexesLabel" Content="Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24"/>
+        <Label x:Name="RegexesLabel" Content="Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="10,0,0,0"/>
         <Label x:Name="ReplacementLabel" Content="Replacement" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,94,0,0"/>
         <Label x:Name="DescriptionLabel" Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,141,0,0"/>
         <Label x:Name="RegexLabel" Content="Regex" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="222,47,0,0"/>
