@@ -21,7 +21,7 @@ namespace RegExFileRenamer
     {
         SavedRegexesClass LoadedSave;
 
-        public SaveRegexWindow(SavedRegexesClass LoadedRegexes,string NewRegex,string NewReplacement)
+        public SaveRegexWindow(SavedRegexesClass LoadedRegexes,string NewRegex,string NewReplacement, RegexOptionsChoices Options)
         {
             InitializeComponent();
             //Save info from the calling window

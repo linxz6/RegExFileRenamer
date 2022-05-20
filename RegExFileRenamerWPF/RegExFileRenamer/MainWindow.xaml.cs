@@ -26,7 +26,6 @@ namespace RegExFileRenamer
     {
         static public string SavedRegexesFileName = "SavedRegexes.xml";
         static SavedRegexesClass LoadedSave;
-        static RegexOptionsChoices CurrentRegexOptions = new RegexOptionsChoices();
 
         public MainWindow()
         {
@@ -100,16 +99,18 @@ namespace RegExFileRenamer
                 try
                 {
                     PostRegexListBox.Items.Clear();
+                    //create regex object
+                    Regex Renamer = new Regex(RegexTextBox.Text, ParseRegexOptions().ConvertToEnum());
                     //Apply regex and replacement to all found file names and display them for the user to review
                     foreach (string FileName in FilesFoundListBox.Items)
                     {
                         string PostRegexFileName = string.Empty;
                         // add * char to beginning of filename if the regex finds a match
-                        if(Regex.IsMatch(FileName, RegexTextBox.Text))
+                        if(Renamer.IsMatch(FileName))
                         {
                             PostRegexFileName += "*";
                         }
-                        PostRegexFileName += Regex.Replace(FileName, RegexTextBox.Text, ReplacementTextBox.Text);
+                        PostRegexFileName += Renamer.Replace(FileName, ReplacementTextBox.Text);
 
                         PostRegexListBox.Items.Add(PostRegexFileName);
                     }
@@ -195,8 +196,12 @@ namespace RegExFileRenamer
         //Sync the scroll bars on the ListBoxes
         private void PostRegexScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            FilesFoundScrollViewer.ScrollToVerticalOffset(PostRegexScrollViewer.VerticalOffset);
-            FilesFoundScrollViewer.ScrollToHorizontalOffset(PostRegexScrollViewer.HorizontalOffset);
+            //only sync the FilesFound if the post regex hasn't been cleared
+            if (PostRegexListBox.Items.Count > 0)
+            {
+                FilesFoundScrollViewer.ScrollToVerticalOffset(PostRegexScrollViewer.VerticalOffset);
+                FilesFoundScrollViewer.ScrollToHorizontalOffset(PostRegexScrollViewer.HorizontalOffset);
+            }
         }
 
         //Weird thing to make the scroll wheel with the FilesFoundListBox
@@ -236,7 +241,7 @@ namespace RegExFileRenamer
             }
 
             //open save window
-            var SaveRegexDialog = new SaveRegexWindow(LoadedSave, RegexTextBox.Text, ReplacementTextBox.Text);
+            var SaveRegexDialog = new SaveRegexWindow(LoadedSave, RegexTextBox.Text, ReplacementTextBox.Text,ParseRegexOptions());
             SaveRegexDialog.Owner = this;
             SaveRegexDialog.ShowDialog();
         }
@@ -281,23 +286,68 @@ namespace RegExFileRenamer
             Properties.Settings.Default.ReplacementSetting = ReplacementTextBox.Text;
             Properties.Settings.Default.Save();
         }
-
-        //Handle option changes
-        private void OptionIgnoreCaseCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            CurrentRegexOptions.IgnoreCase = true;
-        }
-        private void OptionIgnoreCaseCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            CurrentRegexOptions.IgnoreCase = false;
-        }
-
-        //Make sure that nothing is actually selected 
+        
+        //Make sure that nothing is actually selected in the options combobox
         private void RegexOptionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RegexOptionsComboBox.SelectedIndex = -1;
-            RegexOptionsComboBox.Focus();
-            RegexOptionsComboBox.IsDropDownOpen = true;
+        }
+
+        //parse regex options
+        private RegexOptionsChoices ParseRegexOptions()
+        {
+            RegexOptionsChoices FoundOptions = new RegexOptionsChoices((bool)OptionIgnoreCaseCheckBox.IsChecked, (bool)OptionExplicitCaptureCheckBox.IsChecked, (bool)OptionCompiledCheckBox.IsChecked, (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked, (bool)OptionRightToLeftCheckBox.IsChecked, (bool)OptionCultureInvariantCheckBox.IsChecked);
+
+            return FoundOptions;
+        }
+
+        //set regex options
+        public void SetRegexOptions(RegexOptionsChoices Options)
+        {
+            OptionIgnoreCaseCheckBox.IsChecked = Options.IgnoreCase;
+            OptionExplicitCaptureCheckBox.IsChecked = Options.ExplicitCapture;
+            OptionCompiledCheckBox.IsChecked = Options.Compiled;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = Options.IgnorePatternWhitespace;
+            OptionRightToLeftCheckBox.IsChecked = Options.RightToLeft;
+            OptionCultureInvariantCheckBox.IsChecked = Options.CultureInvariant;
+        }
+
+        //reset the regex testing after option changes
+        private void OptionIgnoreCaseCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            //Reset whether the regex has been tested
+            RegexTestedCheckBox.IsChecked = false;
+            PostRegexListBox.Items.Clear();
+        }
+        private void OptionExplicitCaptureCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            //Reset whether the regex has been tested
+            RegexTestedCheckBox.IsChecked = false;
+            PostRegexListBox.Items.Clear();
+        }
+        private void OptionCompiledCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            //Reset whether the regex has been tested
+            RegexTestedCheckBox.IsChecked = false;
+            PostRegexListBox.Items.Clear();
+        }
+        private void OptionIgnorePatternWhitespaceCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            //Reset whether the regex has been tested
+            RegexTestedCheckBox.IsChecked = false;
+            PostRegexListBox.Items.Clear();
+        }
+        private void OptionRightToLeftCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            //Reset whether the regex has been tested
+            RegexTestedCheckBox.IsChecked = false;
+            PostRegexListBox.Items.Clear();
+        }
+        private void OptionCultureInvariantCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            //Reset whether the regex has been tested
+            RegexTestedCheckBox.IsChecked = false;
+            PostRegexListBox.Items.Clear();
         }
     }
 
@@ -328,6 +378,16 @@ namespace RegExFileRenamer
         public bool CultureInvariant = false;
 
         public RegexOptionsChoices() { }
+
+        public RegexOptionsChoices(bool ignoreCase,bool explicitCapture,bool compiled,bool ignorePatternWhitespace,bool righttoLeft,bool cultureInvariant)
+        {
+            IgnoreCase = ignoreCase;
+            ExplicitCapture = explicitCapture;
+            Compiled = compiled;
+            IgnorePatternWhitespace = ignorePatternWhitespace;
+            RightToLeft = righttoLeft;
+            CultureInvariant = cultureInvariant;
+        }
 
         public RegexOptions ConvertToEnum()
         {
