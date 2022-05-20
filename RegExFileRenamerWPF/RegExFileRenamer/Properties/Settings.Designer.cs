@@ -58,5 +58,71 @@ namespace RegExFileRenamer.Properties {
                 this["ReplacementSetting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool IgnoreCase {
+            get {
+                return ((bool)(this["IgnoreCase"]));
+            }
+            set {
+                this["IgnoreCase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ExplicitCapture {
+            get {
+                return ((bool)(this["ExplicitCapture"]));
+            }
+            set {
+                this["ExplicitCapture"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool Compiled {
+            get {
+                return ((bool)(this["Compiled"]));
+            }
+            set {
+                this["Compiled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool IgnorePatternWhitespace {
+            get {
+                return ((bool)(this["IgnorePatternWhitespace"]));
+            }
+            set {
+                this["IgnorePatternWhitespace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool RightToLeft {
+            get {
+                return ((bool)(this["RightToLeft"]));
+            }
+            set {
+                this["RightToLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool CultureInvariant {
+            get {
+                return ((bool)(this["CultureInvariant"]));
+            }
+            set {
+                this["CultureInvariant"] = value;
+            }
+        }
     }
 }

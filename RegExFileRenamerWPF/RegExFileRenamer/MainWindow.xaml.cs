@@ -30,9 +30,16 @@ namespace RegExFileRenamer
         public MainWindow()
         {
             InitializeComponent();
+            //Load regex settings from last time
             DirectoryTextBox.Text = Properties.Settings.Default.FileDirectorySetting;
             RegexTextBox.Text = Properties.Settings.Default.RegexSetting;
             ReplacementTextBox.Text = Properties.Settings.Default.ReplacementSetting;
+            OptionIgnoreCaseCheckBox.IsChecked = Properties.Settings.Default.IgnoreCase;
+            OptionExplicitCaptureCheckBox.IsChecked = Properties.Settings.Default.ExplicitCapture;
+            OptionCompiledCheckBox.IsChecked = Properties.Settings.Default.Compiled;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = Properties.Settings.Default.IgnorePatternWhitespace;
+            OptionRightToLeftCheckBox.IsChecked = Properties.Settings.Default.RightToLeft;
+            OptionCultureInvariantCheckBox.IsChecked = Properties.Settings.Default.CultureInvariant;
         }
 
         //Open Windows Explorer UI to select a file directory
@@ -278,21 +285,21 @@ namespace RegExFileRenamer
             EditSaveDialog.ShowDialog();
         }
 
-        //Save the settings
+        //Save the regex settings on close
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.FileDirectorySetting = DirectoryTextBox.Text;
             Properties.Settings.Default.RegexSetting = RegexTextBox.Text;
             Properties.Settings.Default.ReplacementSetting = ReplacementTextBox.Text;
+            Properties.Settings.Default.IgnoreCase = (bool)OptionIgnoreCaseCheckBox.IsChecked;
+            Properties.Settings.Default.ExplicitCapture = (bool)OptionExplicitCaptureCheckBox.IsChecked;
+            Properties.Settings.Default.Compiled = (bool)OptionCompiledCheckBox.IsChecked;
+            Properties.Settings.Default.IgnorePatternWhitespace = (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked;
+            Properties.Settings.Default.RightToLeft = (bool)OptionRightToLeftCheckBox.IsChecked;
+            Properties.Settings.Default.CultureInvariant = (bool)OptionCultureInvariantCheckBox.IsChecked;
             Properties.Settings.Default.Save();
         }
-        
-        //Make sure that nothing is actually selected in the options combobox
-        private void RegexOptionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            RegexOptionsComboBox.SelectedIndex = -1;
-        }
-
+       
         //parse regex options
         private RegexOptionsChoices ParseRegexOptions()
         {
