@@ -34,12 +34,12 @@ namespace RegExFileRenamer
             DirectoryTextBox.Text = Properties.Settings.Default.FileDirectorySetting;
             RegexTextBox.Text = Properties.Settings.Default.RegexSetting;
             ReplacementTextBox.Text = Properties.Settings.Default.ReplacementSetting;
-            OptionIgnoreCaseCheckBox.IsChecked = Properties.Settings.Default.IgnoreCase;
-            OptionExplicitCaptureCheckBox.IsChecked = Properties.Settings.Default.ExplicitCapture;
-            OptionCompiledCheckBox.IsChecked = Properties.Settings.Default.Compiled;
-            OptionIgnorePatternWhitespaceCheckBox.IsChecked = Properties.Settings.Default.IgnorePatternWhitespace;
-            OptionRightToLeftCheckBox.IsChecked = Properties.Settings.Default.RightToLeft;
-            OptionCultureInvariantCheckBox.IsChecked = Properties.Settings.Default.CultureInvariant;
+            OptionIgnoreCaseCheckBox.IsChecked = (bool?)Properties.Settings.Default.IgnoreCase;
+            OptionExplicitCaptureCheckBox.IsChecked = (bool?)Properties.Settings.Default.ExplicitCapture;
+            OptionCompiledCheckBox.IsChecked = (bool?)Properties.Settings.Default.Compiled;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = (bool?)Properties.Settings.Default.IgnorePatternWhitespace;
+            OptionRightToLeftCheckBox.IsChecked = (bool?)Properties.Settings.Default.RightToLeft;
+            OptionCultureInvariantCheckBox.IsChecked = (bool?)Properties.Settings.Default.CultureInvariant;
         }
 
         //Open Windows Explorer UI to select a file directory
