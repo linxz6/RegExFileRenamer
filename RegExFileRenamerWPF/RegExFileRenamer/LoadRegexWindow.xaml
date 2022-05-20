@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegExFileRenamer"
         mc:Ignorable="d"
-        Title="LoadRegexWindow" Height="398.78" Width="577.744" Background="#FFEAEAEA" KeyDown="Window_KeyDown">
+        Title="LoadRegexWindow" Height="398.78" Width="679.871" Background="#FFEAEAEA" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="37*"/>
@@ -15,13 +15,20 @@
         <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
         <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
         <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
-        <TextBox x:Name="DescriptionTextBox" Margin="0,165,10,35" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1"/>
+        <TextBox x:Name="DescriptionTextBox" Margin="0,165,134,35" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1"/>
         <Button x:Name="LoadRegexButton" Content="Load Regex" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="LoadRegexButton_Click" Grid.Column="1"/>
+        <CheckBox Content="Ignore Case" x:Name="OptionIgnoreCaseCheckBox" ToolTip="Specifies case-insensitive matching" Margin="0,165,46,0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" IsHitTestVisible="True"/>
+        <CheckBox x:Name="OptionExplicitCaptureCheckBox" Content="Explicit Capture" ToolTip="Specifies that the only valid captures are explicitly named or numbered groups of the form (?&lt;name&gt;...). This allows unnamed parentheses to act as noncapturing groups without the syntactic clumsiness of the expression (?:...)." Margin="0,185,27,0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="True"/>
+        <CheckBox x:Name="OptionCompiledCheckBox" Content="Compiled" ToolTip="Specifies that the regular expression is compiled to MSIL code, instead of being interpreted. Compiled regular expressions maximize run-time performance at the expense of initialization time." Margin="0,205,58,0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="True"/>
+        <CheckBox x:Name="OptionIgnorePatternWhitespaceCheckBox" Content="Ignore Whitespace" ToolTip="Eliminates unescaped white space from the pattern and enables comments marked with #. However, this value does not affect or eliminate white space in character classes, numeric quantifiers, or tokens that mark the beginning of individual regular expression language elements." Margin="0,225,10,0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="True"/>
+        <CheckBox x:Name="OptionRightToLeftCheckBox" Content="Right to Left" ToolTip="Specifies that the search will be from right to left instead of from left to right." Margin="0,245,44,0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="True"/>
+        <CheckBox x:Name="OptionCultureInvariantCheckBox" Content="Culture Invariant" ToolTip="Specifies that cultural differences in language is ignored." Margin="0,265,21,0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="True"/>
         <Label x:Name="LoadedRegexesLabel" Content="Loaded Regexes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="10,0,0,0"/>
         <Label x:Name="TitleLabel" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Grid.Column="1"/>
         <Label x:Name="RegexLabel" Content="Regex" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,47,0,0" Grid.Column="1"/>
         <Label x:Name="ReplacementLabel" Content="Replacement" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,94,0,0" Grid.Column="1"/>
         <Label x:Name="DescriptionLabel" Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="0,141,0,0" Grid.Column="1"/>
+        <Label x:Name="OptionsLabel" Content="Regex Options" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontSize="12" Height="24" Margin="276,141,0,0" Grid.Column="1"/>
 
     </Grid>
 </Window>

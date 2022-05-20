@@ -28,6 +28,7 @@ namespace RegExFileRenamer
             LoadedSave = LoadedRegexes;
             RegexTextBox.Text = NewRegex;
             ReplacementTextBox.Text = NewReplacement;
+            SetRegexOptions(Options);
             //Display titles of the loaded regexes
             foreach (SavedRegex Regex in LoadedSave.SavedRegexList)
             {
@@ -65,6 +66,7 @@ namespace RegExFileRenamer
                 NewRegex.Regex = RegexTextBox.Text;
                 NewRegex.Replacement = ReplacementTextBox.Text;
                 NewRegex.Description = DescriptionTextBox.Text;
+                NewRegex.Options = ParseRegexOptions();
                 //save the file
                 LoadedSave.SavedRegexList.Add(NewRegex);
                 LoadedSave.Save(MainWindow.SavedRegexesFileName);
@@ -85,6 +87,25 @@ namespace RegExFileRenamer
             {
                 SaveRegexButton_Click(sender, e);
             }
+        }
+
+        //parse regex options
+        private RegexOptionsChoices ParseRegexOptions()
+        {
+            RegexOptionsChoices FoundOptions = new RegexOptionsChoices((bool)OptionIgnoreCaseCheckBox.IsChecked, (bool)OptionExplicitCaptureCheckBox.IsChecked, (bool)OptionCompiledCheckBox.IsChecked, (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked, (bool)OptionRightToLeftCheckBox.IsChecked, (bool)OptionCultureInvariantCheckBox.IsChecked);
+
+            return FoundOptions;
+        }
+
+        //set regex options
+        public void SetRegexOptions(RegexOptionsChoices Options)
+        {
+            OptionIgnoreCaseCheckBox.IsChecked = Options.IgnoreCase;
+            OptionExplicitCaptureCheckBox.IsChecked = Options.ExplicitCapture;
+            OptionCompiledCheckBox.IsChecked = Options.Compiled;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = Options.IgnorePatternWhitespace;
+            OptionRightToLeftCheckBox.IsChecked = Options.RightToLeft;
+            OptionCultureInvariantCheckBox.IsChecked = Options.CultureInvariant;
         }
     }
 }

@@ -50,6 +50,7 @@ namespace RegExFileRenamer
             RegexTextBox.Text = LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Regex;
             ReplacementTextBox.Text = LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Replacement;
             DescriptionTextBox.Text = LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Description;
+            SetRegexOptions(LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Options);
         }
 
         //Save the users edits
@@ -87,6 +88,7 @@ namespace RegExFileRenamer
                 LoadedSave.SavedRegexList[SelectedIndex].Regex = RegexTextBox.Text;
                 LoadedSave.SavedRegexList[SelectedIndex].Replacement = ReplacementTextBox.Text;
                 LoadedSave.SavedRegexList[SelectedIndex].Description = DescriptionTextBox.Text;
+                LoadedSave.SavedRegexList[SelectedIndex].Options = ParseRegexOptions();
                 //refresh the display
                 LoadedRegexesListBox.Items.Clear();
                 foreach (SavedRegex Regex in LoadedSave.SavedRegexList)
@@ -248,6 +250,25 @@ namespace RegExFileRenamer
             {
                 MessageBox.Show("Error occurred when trying to move regex: " + Err.Message);
             }
+        }
+
+        //parse regex options
+        private RegexOptionsChoices ParseRegexOptions()
+        {
+            RegexOptionsChoices FoundOptions = new RegexOptionsChoices((bool)OptionIgnoreCaseCheckBox.IsChecked, (bool)OptionExplicitCaptureCheckBox.IsChecked, (bool)OptionCompiledCheckBox.IsChecked, (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked, (bool)OptionRightToLeftCheckBox.IsChecked, (bool)OptionCultureInvariantCheckBox.IsChecked);
+
+            return FoundOptions;
+        }
+
+        //set regex options
+        public void SetRegexOptions(RegexOptionsChoices Options)
+        {
+            OptionIgnoreCaseCheckBox.IsChecked = Options.IgnoreCase;
+            OptionExplicitCaptureCheckBox.IsChecked = Options.ExplicitCapture;
+            OptionCompiledCheckBox.IsChecked = Options.Compiled;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = Options.IgnorePatternWhitespace;
+            OptionRightToLeftCheckBox.IsChecked = Options.RightToLeft;
+            OptionCultureInvariantCheckBox.IsChecked = Options.CultureInvariant;
         }
     }
 }

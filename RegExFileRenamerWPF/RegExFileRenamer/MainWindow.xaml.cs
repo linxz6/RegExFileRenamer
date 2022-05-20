@@ -257,7 +257,7 @@ namespace RegExFileRenamer
             }
 
             //Open new window to display the loaded save
-            var LoadRegexDialog = new LoadRegexWindow(LoadedSave,RegexTextBox,ReplacementTextBox);
+            var LoadRegexDialog = new LoadRegexWindow(LoadedSave,this);
             LoadRegexDialog.Owner = this;
             LoadRegexDialog.ShowDialog();
         }
@@ -302,7 +302,7 @@ namespace RegExFileRenamer
         }
 
         //set regex options
-        public void SetRegexOptions(RegexOptionsChoices Options)
+        public bool SetRegexOptions(RegexOptionsChoices Options)
         {
             OptionIgnoreCaseCheckBox.IsChecked = Options.IgnoreCase;
             OptionExplicitCaptureCheckBox.IsChecked = Options.ExplicitCapture;
@@ -310,6 +310,7 @@ namespace RegExFileRenamer
             OptionIgnorePatternWhitespaceCheckBox.IsChecked = Options.IgnorePatternWhitespace;
             OptionRightToLeftCheckBox.IsChecked = Options.RightToLeft;
             OptionCultureInvariantCheckBox.IsChecked = Options.CultureInvariant;
+            return true;
         }
 
         //reset the regex testing after option changes

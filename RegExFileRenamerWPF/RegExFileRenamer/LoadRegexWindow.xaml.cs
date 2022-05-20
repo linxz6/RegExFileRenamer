@@ -20,19 +20,17 @@ namespace RegExFileRenamer
     public partial class LoadRegexWindow : Window
     {
         SavedRegexesClass LoadedSave;
-        TextBox MainRegexTextBox;
-        TextBox MainReplacementTextBox;
+        MainWindow Main;
 
         //Setup when opened from MainWindow
-        public LoadRegexWindow(SavedRegexesClass LoadedRegexes,TextBox MainRegexTextbox,TextBox MainReplacementTextbox)
+        public LoadRegexWindow(SavedRegexesClass LoadedRegexes, MainWindow main)
         {
             InitializeComponent();
             //Save info from the calling window
             LoadedSave = LoadedRegexes;
-            MainRegexTextBox = MainRegexTextbox;
-            MainReplacementTextBox = MainReplacementTextbox;
+            Main = main;
             //Display titles of the loaded regexes
-            foreach(SavedRegex Regex in LoadedSave.SavedRegexList)
+            foreach (SavedRegex Regex in LoadedSave.SavedRegexList)
             {
                 LoadedRegexesListBox.Items.Add(Regex.Title);
             }
@@ -53,13 +51,15 @@ namespace RegExFileRenamer
             RegexTextBox.Text = LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Regex;
             ReplacementTextBox.Text = LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Replacement;
             DescriptionTextBox.Text = LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Description;
+            SetRegexOptions(LoadedSave.SavedRegexList[LoadedRegexesListBox.SelectedIndex].Options);
         }
 
         //Load selected regex to the main window
         private void LoadRegexButton_Click(object sender, RoutedEventArgs e)
         {
-            MainRegexTextBox.Text = RegexTextBox.Text;
-            MainReplacementTextBox.Text = ReplacementTextBox.Text;
+            Main.RegexTextBox.Text = RegexTextBox.Text;
+            Main.ReplacementTextBox.Text = ReplacementTextBox.Text;
+            Main.SetRegexOptions(ParseRegexOptions());
             Close();
         }
 
@@ -71,6 +71,25 @@ namespace RegExFileRenamer
             {
                 LoadRegexButton_Click(sender, e);
             }
+        }
+
+        //parse regex options
+        private RegexOptionsChoices ParseRegexOptions()
+        {
+            RegexOptionsChoices FoundOptions = new RegexOptionsChoices((bool)OptionIgnoreCaseCheckBox.IsChecked, (bool)OptionExplicitCaptureCheckBox.IsChecked, (bool)OptionCompiledCheckBox.IsChecked, (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked, (bool)OptionRightToLeftCheckBox.IsChecked, (bool)OptionCultureInvariantCheckBox.IsChecked);
+
+            return FoundOptions;
+        }
+
+        //set regex options
+        public void SetRegexOptions(RegexOptionsChoices Options)
+        {
+            OptionIgnoreCaseCheckBox.IsChecked = Options.IgnoreCase;
+            OptionExplicitCaptureCheckBox.IsChecked = Options.ExplicitCapture;
+            OptionCompiledCheckBox.IsChecked = Options.Compiled;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = Options.IgnorePatternWhitespace;
+            OptionRightToLeftCheckBox.IsChecked = Options.RightToLeft;
+            OptionCultureInvariantCheckBox.IsChecked = Options.CultureInvariant;
         }
     }
 }
