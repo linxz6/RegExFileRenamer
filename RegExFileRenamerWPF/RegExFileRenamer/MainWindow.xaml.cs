@@ -26,6 +26,7 @@ namespace RegExFileRenamer
     {
         static public string SavedRegexesFileName = "SavedRegexes.xml";
         static SavedRegexesClass LoadedSave;
+        static RegexOptionsChoices CurrentRegexOptions = new RegexOptionsChoices();
 
         public MainWindow()
         {
@@ -280,6 +281,24 @@ namespace RegExFileRenamer
             Properties.Settings.Default.ReplacementSetting = ReplacementTextBox.Text;
             Properties.Settings.Default.Save();
         }
+
+        //Handle option changes
+        private void OptionIgnoreCaseCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CurrentRegexOptions.IgnoreCase = true;
+        }
+        private void OptionIgnoreCaseCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CurrentRegexOptions.IgnoreCase = false;
+        }
+
+        //Make sure that nothing is actually selected 
+        private void RegexOptionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RegexOptionsComboBox.SelectedIndex = -1;
+            RegexOptionsComboBox.Focus();
+            RegexOptionsComboBox.IsDropDownOpen = true;
+        }
     }
 
     public class SavedRegex
@@ -287,12 +306,69 @@ namespace RegExFileRenamer
         public string Title;
         public string Regex;
         public string Replacement;
-        public RegexOptions Options;
+        public RegexOptionsChoices Options;
         public string Description;
 
         public override string ToString()
         {
             return Title;
+        }
+    }
+
+    public class RegexOptionsChoices
+    {
+        public bool IgnoreCase = false;
+        public bool Multiline = false;
+        public bool ExplicitCapture = false;
+        public bool Compiled = false;
+        public bool Singleline = false;
+        public bool IgnorePatternWhitespace = false;
+        public bool RightToLeft = false;
+        public bool ECMAScript = false;
+        public bool CultureInvariant = false;
+
+        public RegexOptionsChoices() { }
+
+        public RegexOptions ConvertToEnum()
+        {
+            RegexOptions FinishedEnum = RegexOptions.None;
+            if (IgnoreCase)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.IgnoreCase;
+            }
+            if (Multiline)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.Multiline;
+            }
+            if (ExplicitCapture)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.ExplicitCapture;
+            }
+            if (Compiled)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.Compiled;
+            }
+            if (Singleline)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.Singleline;
+            }
+            if (IgnorePatternWhitespace)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.IgnorePatternWhitespace;
+            }
+            if (RightToLeft)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.RightToLeft;
+            }
+            if (ECMAScript)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.ECMAScript;
+            }
+            if (CultureInvariant)
+            {
+                FinishedEnum = FinishedEnum | RegexOptions.CultureInvariant;
+            }
+            return FinishedEnum;
         }
     }
 
