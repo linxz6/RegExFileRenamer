@@ -109,17 +109,26 @@ namespace RegExFileRenamer
                     //create regex object
                     Regex Renamer = new Regex(RegexTextBox.Text, ParseRegexOptions().ConvertToEnum());
                     //Apply regex and replacement to all found file names and display them for the user to review
-                    foreach (string FileName in FilesFoundListBox.Items)
-                    {
+                    for(int i = 0;i < FilesFoundListBox.Items.Count;i++)
+                    { 
                         string PostRegexFileName = string.Empty;
+                        bool regexMatched = false;
                         // add * char to beginning of filename if the regex finds a match
-                        if(Renamer.IsMatch(FileName))
+                        if(Renamer.IsMatch(FilesFoundListBox.Items[i].ToString()))
                         {
                             PostRegexFileName += "*";
+                            regexMatched = true;
                         }
-                        PostRegexFileName += Renamer.Replace(FileName, ReplacementTextBox.Text);
+                        PostRegexFileName += Renamer.Replace(FilesFoundListBox.Items[i].ToString(), ReplacementTextBox.Text);
 
                         PostRegexListBox.Items.Add(PostRegexFileName);
+
+                        //highlight the chosen item if it was matched
+                        if(regexMatched)
+                        {
+                            PostRegexListBox.SelectedItems.Add(PostRegexListBox.Items[i]);
+                            FilesFoundListBox.SelectedItems.Add(FilesFoundListBox.Items[i]);
+                        }
                     }
                     //Set whether the regex has been tested
                     RegexTestedCheckBox.IsChecked = true;
