@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegExFileRenamer"
         mc:Ignorable="d"
-        Title="EditSaveWindow" Height="398.78" Width="679.871" Background="#FFEAEAEA" Closed="Window_Closed">
+        Title="EditSaveWindow" Height="398.78" Width="679.871" Background="#FFEAEAEA" Closed="Window_Closed" Icon="Windows Logo.png">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="37*"/>
