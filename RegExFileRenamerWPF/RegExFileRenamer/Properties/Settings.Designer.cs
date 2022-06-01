@@ -61,6 +61,7 @@ namespace RegExFileRenamer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IgnoreCase {
             get {
                 return ((bool)(this["IgnoreCase"]));
@@ -72,6 +73,7 @@ namespace RegExFileRenamer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ExplicitCapture {
             get {
                 return ((bool)(this["ExplicitCapture"]));
@@ -83,6 +85,7 @@ namespace RegExFileRenamer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Compiled {
             get {
                 return ((bool)(this["Compiled"]));
@@ -94,6 +97,7 @@ namespace RegExFileRenamer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IgnorePatternWhitespace {
             get {
                 return ((bool)(this["IgnorePatternWhitespace"]));
@@ -105,6 +109,7 @@ namespace RegExFileRenamer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool RightToLeft {
             get {
                 return ((bool)(this["RightToLeft"]));
@@ -116,12 +121,25 @@ namespace RegExFileRenamer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CultureInvariant {
             get {
                 return ((bool)(this["CultureInvariant"]));
             }
             set {
                 this["CultureInvariant"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OnlyShowMatch {
+            get {
+                return ((bool)(this["OnlyShowMatch"]));
+            }
+            set {
+                this["OnlyShowMatch"] = value;
             }
         }
     }
