@@ -70,27 +70,56 @@ namespace RegExFileRenamer
             }
         }
 
-        //Scan directory for all files
+        //Start scan directory task
         private void ScanDirectoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (FolderScannedCheckBox.IsChecked == false)
+            {
+                //Async scan the directory
+                string Directory = DirectoryTextBox.Text;
+                Task DirectoryScan = new Task(() => ScanDirectory(Directory));
+                DirectoryScan.Start();
+            }
+        }
+
+        //Scan the directory for files
+        private void ScanDirectory(string DirectoryLocation)
         {
             try
             {
                 //scan the folder for all file names
-                string[] Files = Directory.GetFiles(DirectoryTextBox.Text);
+                string[] Files = Directory.GetFiles(DirectoryLocation);
+                double NumFiles = Files.Count();
 
+                //reset GUI before scanning
+                this.Dispatcher.Invoke(() => 
+                {
+                    FilesFoundListBox.Items.Clear();             
+                    MultiUseProgressBar.Value = 0;
+                    //Reset whether the regex has been tested
+                    RegexTestedCheckBox.IsChecked = false;
+                    PostRegexListBox.Items.Clear();
+                });
+                
                 //add just the file names to the user UI
-                FilesFoundListBox.Items.Clear();
                 foreach (string file in Files)
                 {
                     //add file name to the user display
-                    FilesFoundListBox.Items.Add(file.Replace(@DirectoryTextBox.Text + @"\", string.Empty));
+                    string FilenameWithoutDirectory = file.Replace(@DirectoryLocation + @"\", string.Empty);
+                    this.Dispatcher.Invoke(() => 
+                    {
+                        FilesFoundListBox.Items.Add(FilenameWithoutDirectory);
+                        MultiUseProgressBar.Value = MultiUseProgressBar.Value + MultiUseProgressBar.Maximum / NumFiles;
+                    });
                 }
 
-                //Set whether the folder has been scanned
-                FolderScannedCheckBox.IsChecked = true;
-                //Reset whether the regex has been tested
-                RegexTestedCheckBox.IsChecked = false;
-                PostRegexListBox.Items.Clear();
+                //update GUI after scanning is done
+                this.Dispatcher.Invoke(() =>
+                {
+                    MultiUseProgressBar.Value = MultiUseProgressBar.Maximum;
+                    //Set whether the folder has been scanned
+                    FolderScannedCheckBox.IsChecked = true;
+                });
             }
             catch (Exception Except)
             {
@@ -98,46 +127,16 @@ namespace RegExFileRenamer
             }
         }
 
-        //Test the regular expression and replacement
+        //Start test regular expression and replacement task
         private void TestRegexButton_Click(object sender, RoutedEventArgs e)
         {
             if (FolderScannedCheckBox.IsChecked == true)
             {
-                try
-                {
-                    PostRegexListBox.Items.Clear();
-                    //create regex object
-                    Regex Renamer = new Regex(RegexTextBox.Text, ParseRegexOptions().ConvertToEnum());
-                    //Apply regex and replacement to all found file names and display them for the user to review
-                    for(int i = 0;i < FilesFoundListBox.Items.Count;i++)
-                    { 
-                        string PostRegexFileName = string.Empty;
-                        bool regexMatched = false;
-                        // add * char to beginning of filename if the regex finds a match
-                        if(Renamer.IsMatch(FilesFoundListBox.Items[i].ToString()))
-                        {
-                            PostRegexFileName += "*";
-                            regexMatched = true;
-                        }
-                        PostRegexFileName += Renamer.Replace(FilesFoundListBox.Items[i].ToString(), ReplacementTextBox.Text);
-
-                        PostRegexListBox.Items.Add(PostRegexFileName);
-
-                        //highlight the chosen item if it was matched
-                        if(regexMatched)
-                        {
-                            PostRegexListBox.SelectedItems.Add(PostRegexListBox.Items[i]);
-                            FilesFoundListBox.SelectedItems.Add(FilesFoundListBox.Items[i]);
-                        }
-                    }
-                    //Set whether the regex has been tested
-                    RegexTestedCheckBox.IsChecked = true;
-                }
-                catch (Exception Except)
-                {
-                    PostRegexListBox.Items.Clear();
-                    MessageBox.Show("Regex failed: " + Except.Message);
-                }
+                string regex = RegexTextBox.Text;
+                string replacement = ReplacementTextBox.Text;
+                ItemCollection filenames = FilesFoundListBox.Items;
+                Task TestRegexTask = new Task(() => TestRegex(regex, replacement, filenames));
+                TestRegexTask.Start();               
             }
             else
             {
@@ -145,34 +144,120 @@ namespace RegExFileRenamer
             }
         }
 
-        //Apply the regular expression and replacement to all found files
+        //Test the regular expression and replacement on each of the found files
+        private void TestRegex(string regex,string replacement,ItemCollection FileNames)
+        {
+            try
+            {
+                RegexOptions ChosenOptions = new RegexOptions();
+                double NumFiles = FileNames.Count;
+                this.Dispatcher.Invoke(() => 
+                {
+                    PostRegexListBox.Items.Clear();
+                    MultiUseProgressBar.Value = 0;
+                    ChosenOptions = ParseRegexOptions().ConvertToEnum();
+                });
+                //create regex object
+                Regex Renamer = new Regex(regex, ChosenOptions);
+                //Apply regex and replacement to all found file names and display them for the user to review
+                for (int i = 0; i < FileNames.Count; i++)
+                {
+                    string PostRegexFileName = string.Empty;
+                    bool regexMatched = false;
+                    // add * char to beginning of filename if the regex finds a match
+                    if (Renamer.IsMatch(FileNames[i].ToString()))
+                    {
+                        PostRegexFileName += "*";
+                        regexMatched = true;
+                    }
+                    PostRegexFileName += Renamer.Replace(FileNames[i].ToString(), replacement);
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        PostRegexListBox.Items.Add(PostRegexFileName);
+                        //highlight the chosen item if it was matched
+                        if (regexMatched)
+                        {
+                            PostRegexListBox.SelectedItems.Add(PostRegexListBox.Items[i]);
+                            FilesFoundListBox.SelectedItems.Add(FilesFoundListBox.Items[i]);
+                        }
+                        MultiUseProgressBar.Value = MultiUseProgressBar.Value + MultiUseProgressBar.Maximum / NumFiles;
+                    });
+                }
+                //Set whether the regex has been tested
+                this.Dispatcher.Invoke(() => 
+                {
+                    RegexTestedCheckBox.IsChecked = true;
+                    MultiUseProgressBar.Value = MultiUseProgressBar.Maximum;
+                });
+            }
+            catch (Exception Except)
+            {
+                this.Dispatcher.Invoke(() => { PostRegexListBox.Items.Clear(); });
+                MessageBox.Show("Regex failed: " + Except.Message);
+            }
+        }
+
+        //Start the apply regex task
         private void ApplyRegexButton_Click(object sender, RoutedEventArgs e)
         {
             //check if the folder has been scanned and if the regex has been tested
             if (FolderScannedCheckBox.IsChecked == true && RegexTestedCheckBox.IsChecked == true)
             {
-                //rename files one by one
-                for (int i = 0; i < FilesFoundListBox.Items.Count; i++)
-                {
-                    try
-                    {
-                        string OldNameFullPath = DirectoryTextBox.Text + "\\" + FilesFoundListBox.Items[i];
-                        string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i].ToString().Replace("*","");
-                        File.Move(OldNameFullPath, NewNameFullPath);
-                    }
-                    catch (Exception Except)
-                    {
-                        MessageBox.Show("Failed to rename file: " + Except.Message);
-                    }
-                }
+                string directory = DirectoryTextBox.Text;
+                ItemCollection FilesFound = FilesFoundListBox.Items;
+                ItemCollection NewFileNames = PostRegexListBox.Items;
+                Task ApplyRegexTask = new Task(() => ApplyRegex(directory, FilesFound, NewFileNames));
+                ApplyRegexTask.Start();
 
-                //rescan after rename
-                ScanDirectoryButton_Click(sender, e);
+                ////rename files one by one
+                //for (int i = 0; i < FilesFoundListBox.Items.Count; i++)
+                //{
+                //    try
+                //    {
+                //        string OldNameFullPath = DirectoryTextBox.Text + "\\" + FilesFoundListBox.Items[i];
+                //        string NewNameFullPath = DirectoryTextBox.Text + "\\" + PostRegexListBox.Items[i].ToString().Replace("*","");
+                //        File.Move(OldNameFullPath, NewNameFullPath);
+                //    }
+                //    catch (Exception Except)
+                //    {
+                //        MessageBox.Show("Failed to rename file: " + Except.Message);
+                //    }
+                //}
+
+                ////rescan after rename
+                //ScanDirectoryButton_Click(sender, e);
             }
             else
             {
                 MessageBox.Show("Scan folder and test regular expression before starting renaming process.");
             }
+        }
+
+        //Apply the regex rename to each file 
+        private void ApplyRegex(string Directory,ItemCollection FilesToRename, ItemCollection NewFileNames)
+        {
+            this.Dispatcher.Invoke(() =>{MultiUseProgressBar.Value = 0;});
+            double NumFiles = FilesToRename.Count;
+
+            //rename files one by one
+            for (int i = 0; i < FilesToRename.Count; i++)
+            {
+                try
+                {
+                    string OldNameFullPath = Directory + "\\" + FilesToRename[i];
+                    string NewNameFullPath = Directory + "\\" + NewFileNames[i].ToString().Replace("*", "");
+                    File.Move(OldNameFullPath, NewNameFullPath);
+                    this.Dispatcher.Invoke(() => { MultiUseProgressBar.Value = MultiUseProgressBar.Value + MultiUseProgressBar.Maximum / NumFiles; });
+                }
+                catch (Exception Except)
+                {
+                    MessageBox.Show("Failed to rename file: " + Except.Message);
+                }
+            }
+
+            //rescan after rename
+            ScanDirectory(Directory);
         }
 
         //Reset all safety checks on directory change
