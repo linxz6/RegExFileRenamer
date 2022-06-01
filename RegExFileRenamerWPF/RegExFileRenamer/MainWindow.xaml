@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegExFileRenamer"
         mc:Ignorable="d"
-        Title="RegExFileRenamer" Height="783.5" Width="909" Background="#FFEAEAEA" Icon="Windows Logo.png" Closing="Window_Closing">
+        Title="RegExFileRenamer" Height="783.5" Width="909" Background="#FFEAEAEA" Icon="Windows Logo.png" Closing="Window_Closing" MinWidth="750" MinHeight="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
