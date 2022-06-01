@@ -105,7 +105,8 @@ namespace RegExFileRenamer
                 foreach (string file in Files)
                 {
                     //add file name to the user display
-                    string FilenameWithoutDirectory = file.Replace(@DirectoryLocation + @"\", string.Empty);
+                    string FilenameWithoutDirectory = file.Replace(@DirectoryLocation, string.Empty);
+                    FilenameWithoutDirectory = FilenameWithoutDirectory.Replace(@"\", string.Empty);
                     this.Dispatcher.Invoke(() => 
                     {
                         FilesFoundListBox.Items.Add(FilenameWithoutDirectory);
