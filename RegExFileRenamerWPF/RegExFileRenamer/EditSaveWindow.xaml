@@ -12,9 +12,9 @@
             <ColumnDefinition Width="58*"/>
         </Grid.ColumnDefinitions>
         <ListBox x:Name="LoadedRegexesListBox" Margin="10,24,5,11" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="LoadedRegexesListBox_SelectionChanged" SelectionMode="Extended" KeyDown="LoadedRegexesListBox_KeyDown"/>
-        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
-        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" Grid.Column="1"/>
-        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" VerticalAlignment="Top" Background="White" Grid.Column="1"/>
+        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" VerticalAlignment="Top" Grid.Column="1"/>
         <TextBox x:Name="DescriptionTextBox" Margin="0,165,134,35" TextWrapping="Wrap" Grid.Column="1"/>
         <Button x:Name="DeleteRegexButton" Content="Delete Regex" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="DeleteRegexButton_Click" Grid.Column="1"/>
         <Button x:Name="SaveEditsButton" Content="Save Edits" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveEditsButton_Click" Grid.Column="1"/>

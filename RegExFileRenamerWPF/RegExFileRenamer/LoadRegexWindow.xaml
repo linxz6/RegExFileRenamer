@@ -12,9 +12,9 @@
             <ColumnDefinition Width="58*"/>
         </Grid.ColumnDefinitions>
         <ListBox x:Name="LoadedRegexesListBox" Margin="10,24,5,10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="LoadedRegexesListBox_SelectionChanged"/>
-        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
-        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
-        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
+        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
+        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
+        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" VerticalAlignment="Top" IsReadOnly="True" Grid.Column="1"/>
         <TextBox x:Name="DescriptionTextBox" Margin="0,165,134,35" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1"/>
         <Button x:Name="LoadRegexButton" Content="Load Regex" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="LoadRegexButton_Click" Grid.Column="1"/>
         <CheckBox Content="Ignore Case" x:Name="OptionIgnoreCaseCheckBox" ToolTip="Specifies case-insensitive matching" Margin="0,165,46,0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" IsHitTestVisible="True"/>

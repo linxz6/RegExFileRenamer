@@ -12,10 +12,10 @@
             <ColumnDefinition Width="58*"/>
         </Grid.ColumnDefinitions>
         <ListBox x:Name="LoadedRegexesListBox" Margin="10,24,5,10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Insert Title Here" Grid.Column="1"/>
-        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" Grid.Column="1"/>
-        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
-        <TextBox x:Name="DescriptionTextBox" Margin="0,165,134,35" TextWrapping="Wrap" Text="Insert description here" Grid.Column="1"/>
+        <TextBox x:Name="TitleTextBox" Margin="0,24,10,0" VerticalAlignment="Top" Text="Insert Title Here" Grid.Column="1"/>
+        <TextBox x:Name="RegexTextBox" Margin="0,71,10,0" VerticalAlignment="Top" Background="White" Grid.Column="1"/>
+        <TextBox x:Name="ReplacementTextBox" Margin="0,118,10,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="DescriptionTextBox" Margin="0,165,134,35" Text="Insert description here" Grid.Column="1" TextWrapping="Wrap"/>
         <Button x:Name="SaveRegexButton" Content="Save Regex" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="91" Height="20" Click="SaveRegexButton_Click" Grid.Column="1"/>
         <CheckBox Content="Ignore Case" x:Name="OptionIgnoreCaseCheckBox" ToolTip="Specifies case-insensitive matching" Margin="0,165,46,0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <CheckBox x:Name="OptionExplicitCaptureCheckBox" Content="Explicit Capture" ToolTip="Specifies that the only valid captures are explicitly named or numbered groups of the form (?&lt;name&gt;...). This allows unnamed parentheses to act as noncapturing groups without the syntactic clumsiness of the expression (?:...)." Margin="0,185,27,0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
