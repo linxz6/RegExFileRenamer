@@ -11,25 +11,28 @@
     <Setting Name="ReplacementSetting" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IgnoreCase" Type="System.Boolean" Scope="User">
+    <Setting Name="IgnoreCaseSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ExplicitCapture" Type="System.Boolean" Scope="User">
+    <Setting Name="ExplicitCaptureSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Compiled" Type="System.Boolean" Scope="User">
+    <Setting Name="CompiledSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="IgnorePatternWhitespace" Type="System.Boolean" Scope="User">
+    <Setting Name="IgnorePatternWhitespaceSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="RightToLeft" Type="System.Boolean" Scope="User">
+    <Setting Name="RightToLeftSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CultureInvariant" Type="System.Boolean" Scope="User">
+    <Setting Name="CultureInvariantSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="OnlyShowMatch" Type="System.Boolean" Scope="User">
+    <Setting Name="OnlyShowMatchSetting" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ScanSubDirectoriesSetting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

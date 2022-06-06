@@ -62,84 +62,96 @@ namespace RegExFileRenamer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IgnoreCase {
+        public bool IgnoreCaseSetting {
             get {
-                return ((bool)(this["IgnoreCase"]));
+                return ((bool)(this["IgnoreCaseSetting"]));
             }
             set {
-                this["IgnoreCase"] = value;
+                this["IgnoreCaseSetting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ExplicitCapture {
+        public bool ExplicitCaptureSetting {
             get {
-                return ((bool)(this["ExplicitCapture"]));
+                return ((bool)(this["ExplicitCaptureSetting"]));
             }
             set {
-                this["ExplicitCapture"] = value;
+                this["ExplicitCaptureSetting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Compiled {
+        public bool CompiledSetting {
             get {
-                return ((bool)(this["Compiled"]));
+                return ((bool)(this["CompiledSetting"]));
             }
             set {
-                this["Compiled"] = value;
+                this["CompiledSetting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IgnorePatternWhitespace {
+        public bool IgnorePatternWhitespaceSetting {
             get {
-                return ((bool)(this["IgnorePatternWhitespace"]));
+                return ((bool)(this["IgnorePatternWhitespaceSetting"]));
             }
             set {
-                this["IgnorePatternWhitespace"] = value;
+                this["IgnorePatternWhitespaceSetting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool RightToLeft {
+        public bool RightToLeftSetting {
             get {
-                return ((bool)(this["RightToLeft"]));
+                return ((bool)(this["RightToLeftSetting"]));
             }
             set {
-                this["RightToLeft"] = value;
+                this["RightToLeftSetting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CultureInvariant {
+        public bool CultureInvariantSetting {
             get {
-                return ((bool)(this["CultureInvariant"]));
+                return ((bool)(this["CultureInvariantSetting"]));
             }
             set {
-                this["CultureInvariant"] = value;
+                this["CultureInvariantSetting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool OnlyShowMatch {
+        public bool OnlyShowMatchSetting {
             get {
-                return ((bool)(this["OnlyShowMatch"]));
+                return ((bool)(this["OnlyShowMatchSetting"]));
             }
             set {
-                this["OnlyShowMatch"] = value;
+                this["OnlyShowMatchSetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ScanSubDirectoriesSetting {
+            get {
+                return ((bool)(this["ScanSubDirectoriesSetting"]));
+            }
+            set {
+                this["ScanSubDirectoriesSetting"] = value;
             }
         }
     }

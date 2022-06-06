@@ -34,13 +34,14 @@ namespace RegExFileRenamer
             DirectoryTextBox.Text = Properties.Settings.Default.FileDirectorySetting;
             RegexTextBox.Text = Properties.Settings.Default.RegexSetting;
             ReplacementTextBox.Text = Properties.Settings.Default.ReplacementSetting;
-            OptionIgnoreCaseCheckBox.IsChecked = (bool?)Properties.Settings.Default.IgnoreCase;
-            OptionExplicitCaptureCheckBox.IsChecked = (bool?)Properties.Settings.Default.ExplicitCapture;
-            OptionCompiledCheckBox.IsChecked = (bool?)Properties.Settings.Default.Compiled;
-            OptionIgnorePatternWhitespaceCheckBox.IsChecked = (bool?)Properties.Settings.Default.IgnorePatternWhitespace;
-            OptionRightToLeftCheckBox.IsChecked = (bool?)Properties.Settings.Default.RightToLeft;
-            OptionCultureInvariantCheckBox.IsChecked = (bool?)Properties.Settings.Default.CultureInvariant;
-            OnlyShowMatchCheckBox.IsChecked = (bool?)Properties.Settings.Default.OnlyShowMatch;
+            OptionIgnoreCaseCheckBox.IsChecked = (bool?)Properties.Settings.Default.IgnoreCaseSetting;
+            OptionExplicitCaptureCheckBox.IsChecked = (bool?)Properties.Settings.Default.ExplicitCaptureSetting;
+            OptionCompiledCheckBox.IsChecked = (bool?)Properties.Settings.Default.CompiledSetting;
+            OptionIgnorePatternWhitespaceCheckBox.IsChecked = (bool?)Properties.Settings.Default.IgnorePatternWhitespaceSetting;
+            OptionRightToLeftCheckBox.IsChecked = (bool?)Properties.Settings.Default.RightToLeftSetting;
+            OptionCultureInvariantCheckBox.IsChecked = (bool?)Properties.Settings.Default.CultureInvariantSetting;
+            OnlyShowMatchCheckBox.IsChecked = (bool?)Properties.Settings.Default.OnlyShowMatchSetting;
+            ScanSubDirectoriesCheckBox.IsChecked = (bool?)Properties.Settings.Default.ScanSubDirectoriesSetting;
         }
 
         //Open Windows Explorer UI to select a file directory
@@ -76,18 +77,25 @@ namespace RegExFileRenamer
         {
             //Async scan the directory
             FolderScannedCheckBox.IsChecked = false;
+            
             string Directory = DirectoryTextBox.Text;
-            Task DirectoryScan = new Task(() => ScanDirectory(Directory));
+            bool ScanSubDir = ScanSubDir = (bool)ScanSubDirectoriesCheckBox.IsChecked;
+            Task DirectoryScan = new Task(() => ScanDirectory(Directory, ScanSubDir));
             DirectoryScan.Start();
         }
 
         //Scan the directory for files
-        private void ScanDirectory(string DirectoryLocation)
+        private void ScanDirectory(string DirectoryLocation,bool ScanSubDir)
         {
             try
             {
                 //scan the folder for all file names
-                string[] Files = Directory.GetFiles(DirectoryLocation);
+                SearchOption ScanSubDirectories = SearchOption.TopDirectoryOnly;
+                if (ScanSubDir == true)
+                {
+                    ScanSubDirectories = SearchOption.AllDirectories;
+                }
+                string[] Files = Directory.GetFiles(DirectoryLocation, "*", ScanSubDirectories);
                 double NumFiles = Files.Count();
                 Regex MatchChecker = new Regex(string.Empty);
 
@@ -107,7 +115,7 @@ namespace RegExFileRenamer
                 {
                     //add file name to the user display 
                     string FilenameWithoutDirectory = file.Replace(@DirectoryLocation, string.Empty);
-                    FilenameWithoutDirectory = FilenameWithoutDirectory.Replace(@"\", string.Empty);
+                    FilenameWithoutDirectory = Regex.Replace(FilenameWithoutDirectory, @"^\\", "");
                     this.Dispatcher.Invoke(() => 
                     {
                         //check the match setting
@@ -263,7 +271,9 @@ namespace RegExFileRenamer
             }
 
             //rescan after rename
-            ScanDirectory(Directory);
+            bool ScanSubDir = false;
+            this.Dispatcher.Invoke(() => { ScanSubDir = (bool)ScanSubDirectoriesCheckBox.IsChecked; });
+            ScanDirectory(Directory, ScanSubDir);
         }
 
         //Reset all safety checks on directory change
@@ -397,13 +407,14 @@ namespace RegExFileRenamer
             Properties.Settings.Default.FileDirectorySetting = DirectoryTextBox.Text;
             Properties.Settings.Default.RegexSetting = RegexTextBox.Text;
             Properties.Settings.Default.ReplacementSetting = ReplacementTextBox.Text;
-            Properties.Settings.Default.IgnoreCase = (bool)OptionIgnoreCaseCheckBox.IsChecked;
-            Properties.Settings.Default.ExplicitCapture = (bool)OptionExplicitCaptureCheckBox.IsChecked;
-            Properties.Settings.Default.Compiled = (bool)OptionCompiledCheckBox.IsChecked;
-            Properties.Settings.Default.IgnorePatternWhitespace = (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked;
-            Properties.Settings.Default.RightToLeft = (bool)OptionRightToLeftCheckBox.IsChecked;
-            Properties.Settings.Default.CultureInvariant = (bool)OptionCultureInvariantCheckBox.IsChecked;
-            Properties.Settings.Default.OnlyShowMatch = (bool)OnlyShowMatchCheckBox.IsChecked;
+            Properties.Settings.Default.IgnoreCaseSetting = (bool)OptionIgnoreCaseCheckBox.IsChecked;
+            Properties.Settings.Default.ExplicitCaptureSetting = (bool)OptionExplicitCaptureCheckBox.IsChecked;
+            Properties.Settings.Default.CompiledSetting = (bool)OptionCompiledCheckBox.IsChecked;
+            Properties.Settings.Default.IgnorePatternWhitespaceSetting = (bool)OptionIgnorePatternWhitespaceCheckBox.IsChecked;
+            Properties.Settings.Default.RightToLeftSetting = (bool)OptionRightToLeftCheckBox.IsChecked;
+            Properties.Settings.Default.CultureInvariantSetting = (bool)OptionCultureInvariantCheckBox.IsChecked;
+            Properties.Settings.Default.OnlyShowMatchSetting = (bool)OnlyShowMatchCheckBox.IsChecked;
+            Properties.Settings.Default.ScanSubDirectoriesSetting = (bool)ScanSubDirectoriesCheckBox.IsChecked;
             Properties.Settings.Default.Save();
         }
        
@@ -467,6 +478,13 @@ namespace RegExFileRenamer
 
         //reset whether the directory has been scanned
         private void OnlyShowMatchCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            FolderScannedCheckBox.IsChecked = false;
+            FilesFoundListBox.Items.Clear();
+        }
+
+        //reset whether the directory has been scanned
+        private void ScanSubDirectoriesCheckBox_Click(object sender, RoutedEventArgs e)
         {
             FolderScannedCheckBox.IsChecked = false;
             FilesFoundListBox.Items.Clear();
